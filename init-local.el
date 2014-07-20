@@ -1,3 +1,5 @@
+;;; On github
+
 ;;selection with a mouse being immediately injected to the kill ring
 (setq mouse-drag-copy-region t)
 
