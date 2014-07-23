@@ -1,0 +1,475 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>欢迎使用Srun3000宽带计费系统</title>
+<style type="text/css">
+body{
+	font-size:12px;
+	background-image: url();
+	margin-bottom: 0px;
+	margin-top: 0px;
+	background-color: #000000;
+}
+td{font-size:12px;}
+span{font-size:12px;}
+.outer_box{position:absolute; width:417px; height:480px;left:50%;top:50%;margin-left:-214px;margin-top:-148px;}
+/*.prompt{width:417px;height:480px;text-align:left;display:block;background:url(/images/web-01.gif);}*/
+
+
+/*.prompt{width:428px;height:450px;text-align:left;display:block;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/web-03.gif" mce_src="/images/web-03.gif");
+background:url(/images/web-03.gif);_background:none; overflow:hidden;}*/
+
+
+.prompt h1{ float:left; font-size:14px; font-weight:bold;text-align:left; margin:18px 0 0 20px; color:#334f67; display:inline;}
+.prompt .close{ position:relative; float:right; margin:7px 18px 0 0;}
+.prompt h2{clear:both;margin:0 0 25px 28px; line-height:15px;font-size:13px; font-weight:bold;text-align:left;  color:#334f67;}
+.prompt h3{ margin:0px 0 6px 60px; text-align:left; font-size:14px;}
+.prompt h3 .input_t{ position:relative; border:#c4c7c8 1px solid; width:186px;height:20px;line-height:20px;}
+.prompt h4{margin:0 0 10px 80px;font-size:12px;}
+.prompt .ts5{ float:left; border:1px solid #000; margin:-27px 0px 0 230px; height:15px; line-height:20px; background:#fffce9; border:1px solid #edddab; padding:0 5px; color:#c0880f; display:inline;}
+.prompt h4 .input_c{ position:relative;}
+.prompt h4 span{float:left;margin-left:5px;height:30px; line-height:30px;}
+.prompt h4 span a:link{position:relative; color:#fd6c01; text-decoration:underline;}
+.prompt h4 span a:visited{position:relative;color:#fd6c01; text-decoration:underline;}
+.prompt h4 .bottom{ position:relative;float:left; margin-left:4px;width:88px; height:30px; background:url(/images/bottom.gif) no-repeat; border:none; cursor:pointer; font-size:14px; font-weight:bold; color:#fff;}
+.prompt h5{clear:both; margin:0 0 0 40px; padding-top:10px; width:345px; font-size:13px; border-top:1px solid #c3c7c6;}
+.prompt h5 a:link{position:relative; color:#fd6c01; text-decoration:underline;}
+.prompt h5 a:visited{position:relative;color:#fd6c01; text-decoration:underline;}
+.STYLE3 {color: #FFFFFF}
+.STYLE4 {
+	color: #FF0000;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript" src="/lib/md5.js"></script>
+<script type="text/javascript">
+var x = 0, y = 0, x1 = 0, y1 = 0;   
+var moveable = false;   
+var index = 10000;   
+
+//开始拖动   
+
+function startDrag(obj, evt) 
+{   
+    e = evt ? evt : window.event;   
+    if (true) {   
+        if (!window.captureEvents) {   
+            obj.setCapture();   
+        } else {   
+            window.captureEvents(Event.MOUSEMOVE | Event.MOUSEUP);   
+        }   
+        var win = obj.parentNode;//取得父窗体   
+        win.style.zIndex = ++index;//设置父窗体的Z轴值   
+        x = e.clientX;//取得当前鼠标的X坐标   
+        y = e.clientY;//取得当前鼠标的Y坐标   
+        x1 = parseInt(win.style.left);//将父窗体的距浏览器左边界的距离转换为NUMBER   
+        y1 = parseInt(win.style.top);//将父窗体的距浏览器上边界的距离转换为NUMBER   
+        moveable = true;   
+
+    }   
+}   
+function drag(obj, evt) 
+{   
+    e = evt ? evt : window.event;   
+    if (moveable) 
+    {
+        var win = obj.parentNode; //取得父对象 
+        win.style.left = (x1 + e.clientX - x) + 'px';   
+        win.style.top = (y1 + e.clientY - y) + 'px';
+    }   
+}   
+//停止拖动   
+function stopDrag(obj) {   
+    if (moveable) {   
+
+        if (!window.captureEvents) {   
+            obj.releaseCapture();   
+        } else {   
+            window.releaseEvents(Event.MOUSEMOVE | Event.MOUSEUP);   
+        }   
+        moveable = false;   
+    }   
+}   
+    
+var tm;
+function postData(theAction,theMethod,theData)
+{
+  var thePost = (window.XMLHttpRequest)? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+  switch(theMethod)
+  	{
+  		case "post":
+  			thePost.open("POST",theAction,false);
+  			thePost.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  			thePost.send(theData);
+  			break;
+  		case "get":
+  			thePost.open("GET",theAction+"?"+theData,false);
+  			thePost.send("");
+  			break;
+  		default:
+  			return "";
+  	}
+ 	return thePost.responseText;
+ }
+ 
+function jump_to(url)
+{
+ 	if(url != "")
+ 	{
+ 		window.location.href=url;
+ 	}
+ 	else
+ 	{
+ 		var u = Request('url');
+ 		if(u!=''){
+		    u=u.indexOf('http')>-1?u:'http://'+u;
+ 			u = u.indexOf('?')>-1?u+"&"+Math.round(Math.random()*10000):u+"?"+Math.round(Math.random()*10000); 	
+			
+ 			window.location.href=u;	
+ 		}
+ 	}
+}
+
+function do_close()
+{
+	//document.getElementById("loginattach").style.display="none";
+	history.go(-2);
+}
+
+function do_open()
+{
+	document.getElementById("loginattach").style.display="";
+}
+             function jump_to1(url1){
+                if (url1 != "") {
+                    window.location.href = url1;
+                }
+                else {
+                    var u = Request('url');
+                    if (u != '') {
+                        u = u.indexOf('http') > -1 ? u : 'http://' + u;
+                        u = u.indexOf('?') > -1 ? u + "&" + Math.round(Math.random() * 10000) : u + "?" + Math.round(Math.random() * 10000);
+                        window.location.href = u;
+                    }
+                }
+            }
+            
+            function Request(argname){
+                var url = document.location.href;
+                var arrStr = url.substring(url.indexOf("?") + 1).split("&");
+                for (var i = 0; i < arrStr.length; i++) {
+                    var loc = arrStr[i].indexOf(argname + "=");
+                    if (loc != -1) {
+                        return arrStr[i].replace(argname + "=", '').replace("?", '');
+                        break;
+                    }
+                }
+                return '';
+            }
+ function do_login()
+ { 	
+    if(!confirm("为保密安全，请确认您的计算机不涉密！")) return false;	
+
+ 	var uname=document.form1.uname.value;
+ 	var pass=document.form1.pass.value;
+ 	if(uname=="")
+ 	{
+ 		alert("请填写用户名");
+ 		document.form1.uname.focus();
+ 		return;
+ 	}
+ 	
+ 	if(pass=="")
+ 	{
+ 		alert("请填写密码");
+ 		document.form1.pass.focus();
+ 		return;
+ 	}
+ 	//密码md5加密传送
+ 	var pass1=hex_md5(pass);
+ 	var pass2=pass1.substr(8,16);
+ 	
+ 	var drop=(document.form1.drop.checked==true)?1:0;
+ 	var data="username="+uname+"&password="+pass2+"&drop="+drop+"&type=1&n=100";
+
+ 	var con=postData("/cgi-bin/do_login", "post", data);
+ 	//alert(con); 
+ 	var p=/^[\d]+$/;
+ 	if(p.test(con))
+ 	{
+ 		var url = window.location.href;
+		var str=url.split("?url=");
+		document.form1.uid.value=con;
+ 		if(document.form1.save_me.checked) //写COOKIE
+ 		{
+ 			setCookie("srun_login",uname+"|"+pass);
+ 		}
+ 		else
+ 		{
+ 			delCookie("srun_login");
+ 		}
+ 		window.open("login.html","user_login","width=369,height=239"); 
+		window.location.replace(str[1]);
+
+ 		setTimeout("jump_to()", 1000);
+ 		return;
+ 	}	
+ 	switch(con)
+ 	{
+ 		case "user_tab_error":
+ 			alert("认证程序未启动");
+ 			break;
+ 			
+ 		case "username_error":
+ 			alert("用户名错误");
+ 			document.form1.uname.focus();
+ 			break;
+ 			
+ 		case "non_auth_error":
+ 			alert("您无须认证，可直接上网");
+ 			break;
+ 			
+ 		case "password_error":
+ 			alert("密码错误");
+ 			document.form1.pass.focus();
+ 			break;
+ 			
+ 		case "status_error":
+ 			alert("用户已欠费，请尽快充值。");
+ 			break;
+ 			
+ 		case "available_error":
+ 			alert("用户已禁用");
+ 			break;
+ 			
+ 		case "ip_exist_error":
+ 			alert("您的IP尚未下线，请等待2分钟再试。");
+ 			break;
+ 			
+ 		case "usernum_error":
+ 			alert("用户数已达上限");
+ 			break; 
+ 			
+ 		case "online_num_error":
+ 			alert("该帐号的登录人数已超过限额\n如果怀疑帐号被盗用，请联系管理员。");
+ 			break;	
+ 			
+ 		case "mode_error":
+ 			alert("系统已禁止WEB方式登录，请使用客户端");
+ 			break;
+ 			
+ 		case "time_policy_error":
+ 			alert("当前时段不允许连接");
+ 			break;
+ 			
+ 		case "flux_error":
+ 			alert("您的流量已超支");
+ 			break;
+ 			
+ 		case "minutes_error":
+ 			alert("您的时长已超支");
+ 			break;
+ 			
+ 		case "ip_error":
+ 			alert("您的IP地址不合法");
+ 			break;
+ 			
+ 		case "mac_error":
+ 			alert("您的MAC地址不合法");
+ 			break;
+ 			
+ 		case "sync_error":
+ 			alert("您的资料已修改，正在等待同步，请2分钟后再试。");
+ 			break;
+ 			
+ 		default:
+ 			alert("找不到认证服务器");
+ 			break;		
+ 	} 	
+ }
+ 
+function force_logout()
+{
+ 	if(!confirm("如果您的用户名有多个用户在线上，这些用户都将被强制下线，是否继续？"))
+ 		return;
+ 	var uname=document.form1.uname.value;
+ 	var pass=document.form1.pass.value;
+ 	if(uname=="")
+ 	{
+ 		alert("请填写用户名");
+ 		document.form1.uname.focus();
+ 		return;
+ 	}
+ 	
+ 	if(pass=="")
+ 	{
+ 		alert("请填写密码");
+ 		document.form1.pass.focus();
+ 		return;
+ 	}
+ 	
+ 	var drop=(document.form1.drop.checked==true)?1:0;
+ 	var data="username="+uname+"&password="+pass+"&drop="+drop+"&type=1&n=1";
+ 	//alert(data);
+ 	var con=postData("/cgi-bin/force_logout", "post", data);
+ 	//alert(con);
+ 	switch(con)
+ 	{
+ 		case "user_tab_error":
+ 			alert("认证程序未启动");
+ 			break;
+ 			
+ 		case "username_error":
+ 			alert("用户名错误");
+ 			document.form1.uname.focus();
+ 			break;
+ 			
+ 		case "password_error":
+ 			alert("密码错误");
+ 			document.form1.pass.focus();
+ 			break;
+ 			
+ 		case "logout_ok":
+ 			alert("注销成功，请等1分钟后登录。");
+ 			break;
+ 			
+ 		case "logout_error":
+ 			alert("您不在线上");
+ 			break;
+ 			
+ 		default:
+ 			alert("找不到认证服务器");
+ 			break;		
+ 	} 	
+}
+ 
+function get_uid()
+{
+ 	return document.form1.uid.value;
+}
+
+function get_uname()
+{
+	return document.form1.uname.value;
+}
+
+function setCookie(name,value)
+{
+    var Days = 360; 
+    var exp  = new Date(); 
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+function getCookie(name)      
+{
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+    if(arr != null) 
+     	return unescape(arr[2]); 
+     return null;
+}
+
+function delCookie(name)//删除cookie
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null) 
+    	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
+function goto_services()
+{
+	//document.form1.action="http://202.112.136.157:8800/services.php";
+	//document.form1.action="http://202.112.136.131:8800";
+	//document.form1.target="_blank";
+	//document.form1.submit();
+	//document.location.reload();
+  window.location.href="http://202.112.136.157:8800";
+
+}
+</script>
+</head>
+<body>
+<Script Langvage=javascript>
+function Click()
+{
+	if (event.button!=1)
+	{
+		alert('版权所有(C)2008　深澜软件');
+	}
+}
+//document.onmousedown=Click;
+</Script>
+<table width="1065" height="643" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td background="images/bigpic3.jpg"><form name="form1" onSubmit="do_login();return false;" method="post" action="/cgi-bin/do_login">
+      <table width="994" height="572" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr>
+          <td><table width="994" border="0" align="left" cellpadding="0" cellspacing="0" bordercolor="#FF0000">
+              <tr>
+                <td height="250" colspan="3">&nbsp;</td>
+              </tr>
+		<tr>
+<td width="300px"></td>
+<td>
+<a href="" target="_blank"><font color="red"></font></a>
+</td>
+</tr>
+              <tr>
+                <td width="30%" rowspan="5"><a href="http://nic.buaa.edu.cn/tzgg/54656.htm" target="_blank"><img src="images/00.gif" width="293" height="197" border="0"></a></td>
+                <td width="13%">用户名(User Name)：</td>
+                <td height="30"><input name="uname" type="text" id="username" onClick="this.value='';this.focus();" onMouseOver="this.style.borderColor='#7dbde2'"  onMouseOut="this.style.borderColor='#c4c7c8'" size=14 />
+                  （工作证号/学号 字母小写）</td>
+              </tr>
+              <tr>
+                <td>密　码(Password)：<br></td>
+                <td height="30"><input name="pass" type="password" id="password" onClick="this.value='';this.focus();"  onMouseOver="this.style.borderColor='#7dbde2'"  onMouseOut="this.style.borderColor='#c4c7c8'"  size=14/>
+                  （初始密码为8位生日YYYYMMDD）
+                    <input type="checkbox" name="save_me" value="1" class="input_c">
+保存密码</td>
+              </tr>
+              <tr>
+                <td height="30" colspan="2">　　
+                  　
+                  <input type="checkbox" name="drop" value="1" class="input_c" style="display:none">
+                  <!-- 仅访问免费资源&nbsp; -->
+                  　 　　　　　<!-- <span class="STYLE4">系统已经禁止WEB登录，请下载客户端登陆</span> --></td>
+              </tr>
+              <tr>
+                <td height="55" colspan="2">　　　
+                  　
+                  <input type="submit" name="loginsubmit" value="登 录" class="bottom">
+　
+<input type="button" name="logoutsubmit" value="注 销" class="bottom" onClick="force_logout()">
+                  
+                  　
+                  <input type="button" name="logoutsubmit" value="自服务" class="bottom" onClick="goto_services();return false;"></td>
+              </tr>
+              <tr>
+                <td height="55" colspan="2"><span style="color: #FFFFFF"><font style='color:#FFFFFF'>　　下载客户端：</font><a href="/files/srun3000.exe" class="STYLE3">Windows</a>&nbsp;</span> <a href="/files/srun3_client_macos_x86.zip" class="STYLE3">苹果客户端</a>  <a href="/files/auth.apk" target="_blank" class="STYLE3">Andirod客户端</a> <a href="download_client.html" target="_blank" class="STYLE3">其它系统</a>&nbsp; <a href="lszh.doc" target="_blank" class="STYLE3">账号申请表</a>  <a href="help.mht" target="_blank"  class="STYLE3">帮助</a></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <input type="hidden" name="uid" value="">
+    </form></td>
+  </tr>
+</table>
+</body>
+<script language="javascript">
+	var cook=getCookie("srun_login");
+	if(cook!=null)
+	{
+		var arr=cook.split("|");
+		document.form1.uname.value=arr[0];
+		document.form1.pass.value=arr[1];
+		document.form1.save_me.checked=true;
+	}
+	/*document.getElementById("loginattach").style.left=((document.body.clientWidth-428)/2)+'px';
+	document.getElementById("loginattach").style.top=((document.body.clientHeight+296)/2)+'px';*/
+</script>
+</html>
+
