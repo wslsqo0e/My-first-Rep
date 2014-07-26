@@ -3,6 +3,8 @@
 import urllib.request
 import hashlib
 import urllib.parse
+import shelve
+import re
 
 Month_Day=[31,29,31,30,31,30,31,31,30,31,30,31]
 
@@ -35,7 +37,6 @@ def check_password(username,password):
     myResponse=urllib.request.urlopen(req)
     backcode=myResponse.read()
     backcode=backcode.decode("gbk")
-    print(backcode)
     return backcode
 
 def getBirthday(year,mon,day):
@@ -67,14 +68,30 @@ def getPassword(username,textpass):
     else:
         password=str(testpass)
         backcode=check_password(username,password)
-        return ''.join([backcode,passwrod])
+        return ' '.join([backcode,password])
     return "wrong birthday guess"
 
-username=input("请输入学号(字母小写):")
-testpass=input("请输入密码(若未知请输入年份区间 e.g. 1988-1989):")
+if __name__=="__main__":
+    buaadb=shelve.open("buaadb-shelve")
+    username=input("请输入学号(字母小写):")
+    testpass=input("请输入密码(若未知请输入年份区间 e.g. 1988-1989):")
 
-password=getPassword(username,testpass)
-print("用户名:",end=' ')
-print(username)
-print("result:",end='  ')
-print(password)
+    if username in buaadb:
+        testpass=buaadb[username]
+    password=getPassword(username,testpass)
+    print("用户名:",end=' ')
+    print(username)
+    print("result:")
+    message=password.split(' ')[0]
+    password=password.split(' ')[-1]
+    pat=re.compile('^[\d]+$')
+    if pat.match(message):
+        print('密码: '+password)
+        print('登录成功')
+        if username not in buaadb:
+            buaadb[username]=password
+    else:
+        print('登录失败')
+        print('error message',end=' ')
+        print(message)
+    buaadb.close()
