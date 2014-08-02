@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 ################################################################################
 #待解决问题，当密码错误时程序能够正常运行，但当用户名错误（位数不对时），程序会挂起。
 import urllib.request
@@ -88,6 +89,10 @@ if __name__=="__main__":
     if pat.match(message):
         print('密码: '+password)
         print('登录成功')
+        if username not in buaadb:
+            buaadb[username]=password
+    elif message=="ip_exist_error":
+        print('Already login by another client')
         if username not in buaadb:
             buaadb[username]=password
     else:
